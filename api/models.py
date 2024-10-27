@@ -21,9 +21,9 @@ class Letters(SQLModel, table=True):
     content: str = Field(nullable=False)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), nullable=False)
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), nullable=False)
-    happy: bool = Field(default=False, nullable=False)
-    healing: bool = Field(default=False, nullable=False)
-    amusing: bool = Field(default=False, nullable=False)
-    negative: bool = Field(default=False, nullable=False)
+    happy: int = Field(default=0, nullable=False)
+    healing: int = Field(default=0, nullable=False)
+    amusing: int = Field(default=0, nullable=False)
+    negative: int = Field(default=0, nullable=False)
 
     user: Optional[Users] = Relationship(back_populates="letters")
