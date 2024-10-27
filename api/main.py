@@ -14,12 +14,12 @@ async def get_session() -> AsyncSession:
     async with SessionLocal() as session:
         yield session
 
-@app.post("/items/", response_model=schemas.ItemRead)
+@app.post("/users/", response_model=schemas.UserRead)
 async def create_item(
-    item: schemas.ItemCreate, session: AsyncSession = Depends(get_session)
+    item: schemas.UserCreate, session: AsyncSession = Depends(get_session)
 ):
-    return await crud.create_item(session, item)
+    return await crud.create_user(session, item)
 
-@app.get("/items/", response_model=list[schemas.ItemRead])
+@app.get("/users/", response_model=list[schemas.UserRead])
 async def read_items(session: AsyncSession = Depends(get_session)):
-    return await crud.get_items(session)
+    return await crud.get_users(session)

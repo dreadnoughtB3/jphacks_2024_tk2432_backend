@@ -1,11 +1,22 @@
 # app/schemas.py
 from pydantic import BaseModel
+import uuid
+from datetime import datetime
 
-class ItemCreate(BaseModel):
+class UserCreate(BaseModel):
     name: str
+    email: str
+    hashed_password: str
+    nick_name: str
     description: str
 
-class ItemRead(BaseModel):
+class UserRead(BaseModel):
     id: int
+    uid: uuid.UUID
     name: str
+    nick_name: str
+    email: str
+    hashed_password: str
     description: str
+    created_at: datetime
+    updated_at: datetime
