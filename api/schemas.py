@@ -20,3 +20,11 @@ class UserRead(BaseModel):
     description: str
     created_at: datetime
     updated_at: datetime
+
+class LetterCreate(BaseModel):
+    content: str
+    user_id: str
+    happy: int
+    healing: int
+    negative: int
+    amusing: int

@@ -2,7 +2,7 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from api.models import Users, Letters
+from api.models import Item
 from dotenv import load_dotenv
 from sqlmodel import SQLModel
 
