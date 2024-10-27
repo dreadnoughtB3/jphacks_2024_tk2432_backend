@@ -9,9 +9,16 @@ load_dotenv()
 
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
-engine = create_async_engine(DATABASE_URL, echo=True, future=True)
+engine = create_async_engine(
+    DATABASE_URL,
+    echo=True,
+    future=True,
+    connect_args={"statement_cache_size": 0}
+)
 SessionLocal = sessionmaker(
-    bind=engine, class_=AsyncSession, expire_on_commit=False
+    bind=engine, 
+    class_=AsyncSession, 
+    expire_on_commit=False
 )
 
 async def init_db():
