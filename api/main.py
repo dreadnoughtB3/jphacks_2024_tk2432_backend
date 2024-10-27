@@ -1,7 +1,7 @@
 # app/main.py
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from api.database import SessionLocal, init_db
+from api.database import get_session
 from api import crud, models, schemas
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 import jwt
@@ -16,6 +16,7 @@ SECRET_KEY = "wh40k"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
+
 def create_access_token(data: dict, expires_delta: timedelta):
     to_encode = data.copy()
     if expires_delta:
@@ -26,16 +27,13 @@ def create_access_token(data: dict, expires_delta: timedelta):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt, expire
 
+
 def hash_password(password: str) -> str:
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
+
 async def verify_password(plain_password: str, hashed_password: str) -> bool:
     return bcrypt.checkpw(plain_password.encode('utf-8'), hashed_password.encode('utf-8'))
-
-
-async def get_session() -> AsyncSession:
-    async with SessionLocal() as session:
-        yield session
 
 
 @app.post("/users/", response_model=schemas.UserRead)
